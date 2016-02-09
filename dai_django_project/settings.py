@@ -10,13 +10,9 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')   # esto es igual para las dos versiones
+import dj_database_url
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -28,6 +24,14 @@ SECRET_KEY = ')8e4r!)c@g6=+^es170($hppl^8r1eia(7%pmkiy&p_h%&d6k8'
 DEBUG = False #Cambiado a false para despliegue de aplicación
 #Permite todos los nombres de dominio
 ALLOWED_HOSTS = ['*'] #cambiado a '*' para despliegue de aplicación
+
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 
 
 # Application definition
@@ -75,14 +79,17 @@ TEMPLATES = [
 
 TEMPLATE_DIRS = ('alvaro/dai_django_project/',)
 
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+
 STATIC_PATH = os.path.join(BASE_DIR,'static')
 
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/' # Donde va a encontrar las imagenes
 
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
-# Añadido depués de crear el directorio media 
+# Añadido depués de crear el directorio media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Absolute path to the media directory
 
@@ -105,6 +112,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 # Con esto nos aseguramos de que los usuarios no logeados sean enviados a logearse si tratan de acceder a sitios privados.
 LOGIN_URL = '/bares/login/'
 
