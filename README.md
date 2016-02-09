@@ -11,3 +11,5 @@ Lo primero que haremos será descargarnos *gunicorn* mediante *pip install gunic
 
 Ahora nos registraremos en *heroku*, consiguiendo una cuenta gratuita, siguiendo los pasos que se nos indica.
 Para usar heroku necesitaremos usar *git*, en mi caso ya tengo creada la cuenta en *github* por lo que no será necesario ningún paso extra.
+
+Una vez realizados estos pasos tendremos que crear un *script* al que llamaremos *heroku.sh* en el cual estará todo lo necesario para desplegar automaticamente nuestra aplicación en *heroku*.
