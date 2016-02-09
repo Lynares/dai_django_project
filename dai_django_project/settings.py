@@ -59,6 +59,10 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'dai_django_project.urls'
 
+TEMPLATE_DIRS = ('alvaro/dai_django_project/',)
+
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -76,10 +80,6 @@ TEMPLATES = [
         },
     },
 ]
-
-TEMPLATE_DIRS = ('alvaro/dai_django_project/',)
-
-TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
 STATIC_PATH = os.path.join(BASE_DIR,'static')
 
