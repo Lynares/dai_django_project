@@ -10,8 +10,9 @@
 
     <title>Bares - {% block title %}Aplicacion para DAI!{% endblock %}</title>
 
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+    <!--<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <!-- Añadimos jquery y highcharts -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -63,7 +64,7 @@
 
           bares = datos['lista_bares'];
           visitas = datos['visit'];
-          // Añadimos container, que lo usaremos luego para 
+          // Añadimos container, que lo usaremos luego para
           $('#container').highcharts({
             chart: {
               type: 'bar'
@@ -111,7 +112,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="{% url 'index' %}">Inicio</a></li>
               {% if user.is_authenticated %}
-                {% if bar.slug %} <!-- Si esta autenticado y si estamos en la pagina de un bar podremos 
+                {% if bar.slug %} <!-- Si esta autenticado y si estamos en la pagina de un bar podremos
                   ver "añadir tapas" en la barra de arriba -->
                   <li><a href="/bares/bar/{{ bar.slug }}/add_tapas/"}>Añadir tapa</a></li>
                 {% endif %}
@@ -139,9 +140,9 @@
             <div>
               <button id="boton3" class="btn btn-default btn-xs">Letra más grande</button>
             </div>
-            <div id="container" style="height: 300px"></div> 
+            <div id="container" style="height: 300px"></div>
           {% endblock %}
-        
+
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <div>
