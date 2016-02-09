@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bares, proyecto para DAI UGR-2015/2016">
+    <meta name="author" content="Alvaro Maximino Linares Herrera">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Bares - {% block title %}Aplicacion para DAI!{% endblock %}</title>
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+    <!-- Añadimos jquery y highcharts -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Añadimos script para botones de cambio de tamaño de letra -->
+    <!-- Script inspirado en:  https://todojquery.wordpress.com/2009/03/27/aumentar-o-disminuir-el-tamano-de-la-letra/ -->
+    <!-- Añadimos también la visualización de los bares con highcharts -->
+    <script>
+      $(function(){
+        var originalFontSize = $('body').css('font-size');
+        //Reiniciar tamaño de la fuente
+        $("#boton1").click(function(){
+          $('body').css('font-size', originalFontSize);
+        });//terminamos boton1
+        //Incrementar el tamaño de la fuente
+        $("#boton2").click(function(){
+          var currentFontSize = $('body').css('font-size');
+          var currentFontSizeNum = parseFloat(currentFontSize, 10);
+          var newFontSize = currentFontSizeNum*1.2;
+          $('body').css('font-size',newFontSize);
+          return false;
+        });//terminamos boton2
+        //Incrementar mucho el tamaño de la fuente
+        $("#boton3").click(function(){
+          var currentFontSize = $('body').css('font-size');
+          var currentFontSizeNum = parseFloat(currentFontSize, 10);
+          var newFontSize = currentFontSizeNum*2.5;
+          $('body').css('font-size',newFontSize);
+          return false;
+        }); // Terminamos boton3
+        $.ajax({
+          url: "{% url 'reclama_datos' %}",
+          type: 'get',
+          success: function(datos) {
+            Visualiza_datos(datos);
+          },
+          failure: function(datos) {
+            alert('esto no vá!');
+          }
+        }); //Terminamos $.ajax
+
+        function Visualiza_datos (datos) {
+          var bares=[];
+          var visitas=[];
+
+          bares = datos['lista_bares'];
+          visitas = datos['visit'];
+          // Añadimos container, que lo usaremos luego para 
+          $('#container').highcharts({
+            chart: {
+              type: 'bar'
+            },
+            title: {
+              text: 'Visitas'
+            },
+            xAxis: {
+              categories: bares
+            },
+            yAxis: {
+              title:{
+                text: 'Visitas'
+              }
+            },
+            series: [{
+              name: 'Visitas',
+              data: visitas
+            }],
+
+          }); //Terminamos container, highcharts
+
+        }; //Terminamos Visualiza_datos
+
+      }); //Terminamos function
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/bares/">Bares</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'index' %}">Inicio</a></li>
+              {% if user.is_authenticated %}
+                {% if bar.slug %} <!-- Si esta autenticado y si estamos en la pagina de un bar podremos 
+                  ver "añadir tapas" en la barra de arriba -->
+                  <li><a href="/bares/bar/{{ bar.slug }}/add_tapas/"}>Añadir tapa</a></li>
+                {% endif %}
+                <li><a href="{% url 'restricted' %}">Restringido</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+              {% else %}
+                <li><a href="{% url 'register' %}">Registrarse</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+              {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          {% block side_block %}<!-- -->
+            <div>
+              <button id="boton1" class="btn btn-default btn-xs">Letra Normal</button>
+            </div>
+            <div>
+              <button id="boton2" class="btn btn-default btn-xs">Letra Grande</button>
+            </div>
+            <div>
+              <button id="boton3" class="btn btn-default btn-xs">Letra más grande</button>
+            </div>
+            <div id="container" style="height: 300px"></div> 
+          {% endblock %}
+        
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div>
+            {% block body_block %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

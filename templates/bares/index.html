@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Inicio{% endblock %}
+
+        {% block body_block %}
+            {% if user.is_authenticated %}
+            <div class="page-header">
+                <h1>Gracias por identificarte {{ user.username }}!</h1>
+            {% else %}
+                <h1>Bares dice... hola mundo!</h1>
+            {% endif %}
+            </div>
+
+        <div class="row placeholders">
+            <div class="col-xs-12 col-sm-6 placeholder">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Bares</h3>
+                        {% if bares %}
+                            <ul class="list-group">
+                            {% for bar in bares %}
+                                <li class="list-group-item"><a href="{% url 'bar'  bar.slug %}">{{ bar.n_bar }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                            <strong>No hay bares disponibles.</strong>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 placeholder">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Tapas</h3>
+                        {% if tapas %}
+                            <ul class="list-group">
+                            {% for t in tapas %}
+                                <li class="list-group-item"><a href="">{{ t.nombre }} - votos: {{ t.votos }} </a></li>
+                            {% endfor %}             <!--{{t.nombre}}-->
+                            </ul>
+                        {% else %}
+                            <strong>No hay tapas disponibles.</strong>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

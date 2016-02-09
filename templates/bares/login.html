@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Login{% endblock %}
+
+{% block body_block %}
+
+    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+
+    <form class="form-signin" role="form" method="post" action="/bares/login/">
+        {% csrf_token %}
+            <h2 class="form-signin-heading">Por favor identifiquese</h2>
+            Usuario: <input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/>
+            Contraseña: <input type="password" class="form-control" placeholder="Password" id="id_password" name="password"  required />
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" >Entrar</button>
+    </form>
+
+{% endblock %}
