@@ -137,8 +137,9 @@
 <div>
     <div class="container-fluid">
       <div class="row">
+{% block side_block %}<!-- -->
         <div class="col-sm-3 col-md-2 sidebar">
-          {% block side_block %}<!-- -->
+
             <div>
               <button id="boton1" class="btn btn-default btn-xs">Letra Normal</button>
             </div>
@@ -149,9 +150,9 @@
               <button id="boton3" class="btn btn-default btn-xs">Letra más grande</button>
             </div>
             <div id="container" style="height: 300px"></div>
-
+</div>
           {% endblock %}
-        </div>
+
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <div>
             {% block body_block %}{% endblock %}

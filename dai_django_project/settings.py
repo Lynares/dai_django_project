@@ -25,14 +25,7 @@ DEBUG = False #Cambiado a false para despliegue de aplicación
 #Permite todos los nombres de dominio
 ALLOWED_HOSTS = ['*'] #cambiado a '*' para despliegue de aplicación
 
-
-
-#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-
 
 # Application definition
 
