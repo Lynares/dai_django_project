@@ -1,6 +1,8 @@
 # dai_django_project
 ## Práctica 7, explicación despliegue en Heroku
 
+El enlace de la aplicación desplegada en *heroku* es el siguiente: http://alvarobares.herokuapp.com/bares/
+
 Lo primero que haremos será descargarnos *gunicorn* mediante *pip install gunicorn* y quitamos el ambiente de depuración de la aplicación cambiando en *settings.py* la variable *DEBUG = True*, por *DEBUG = False* y *ALLOWED_HOSTS = []* por *ALLOWED_HOSTS = ['**']. De esta forma hemos conseguido:
 
 
